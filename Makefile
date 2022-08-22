@@ -3,7 +3,8 @@ OBJ_DIR := $(BUILD_DIR)/objs
 SRC_DIR := src
 
 CC = g++
-CPPFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+CPPFLAGS = -std=c++17 -Wall -g3
+SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
 
@@ -11,10 +12,10 @@ _OBJS = main.o Cell.o Grid.o
 SRC_OBJS = $(patsubst %,$(OBJ_DIR)/%,$(_OBJS))
 
 app: $(SRC_OBJS)
-	$(CC) $^ -o $@ $(CPPFLAGS)
+	$(CC) $^ -o $@ $(CPPFLAGS) $(SFML_FLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
-	$(CC) -c -o $@ $<
+	$(CC) $(CPPFLAGS) -c -o $@ $<
 
 $(OBJ_DIR):
 	mkdir -p $@

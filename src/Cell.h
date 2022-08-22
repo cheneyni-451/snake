@@ -4,16 +4,23 @@
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
 
-struct Cell {
-    bool isFood;
-    bool isSnake;
+class Cell {
+   public:
+    enum CellType : uint8_t { Empty, Food, Snake };
+    CellType type;
     size_t x;
     size_t y;
     sf::RectangleShape sprite;
 
     Cell(const size_t x, const size_t y);
 
-    bool isEmpty();
+    void setFood();
+
+    void setSnake();
+
+    void setEmpty();
+
+    void draw(sf::RenderTarget *window) const;
 };
 
 #endif /* CELL_H */

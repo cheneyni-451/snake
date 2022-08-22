@@ -1,7 +1,6 @@
 #include "Cell.h"
 
-Cell::Cell(const size_t x, const size_t y)
-    : isFood(false), isSnake(false), x(x), y(y) {
+Cell::Cell(const size_t x, const size_t y) : type(CellType::Empty), x(x), y(y) {
     sprite.setSize(sf::Vector2f(50.f, 50.f));
     sprite.setPosition(sf::Vector2f(x * 60, y * 60));
     sprite.setFillColor(sf::Color::Black);
@@ -9,6 +8,24 @@ Cell::Cell(const size_t x, const size_t y)
     sprite.setOutlineColor(sf::Color::White);
 }
 
-bool Cell::isEmpty() {
-    return !isFood && !isSnake;
+void Cell::setFood() {
+    type = CellType::Food;
+
+    sprite.setFillColor(sf::Color::Red);
+}
+
+void Cell::setSnake() {
+    type = CellType::Snake;
+
+    sprite.setFillColor(sf::Color::Green);
+}
+
+void Cell::setEmpty() {
+    type = CellType::Empty;
+
+    sprite.setFillColor(sf::Color::Black);
+}
+
+void Cell::draw(sf::RenderTarget *window) const {
+    window->draw(sprite);
 }
