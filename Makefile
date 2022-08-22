@@ -7,7 +7,7 @@ CPPFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
 
-_OBJS = main.o
+_OBJS = main.o Cell.o Grid.o
 SRC_OBJS = $(patsubst %,$(OBJ_DIR)/%,$(_OBJS))
 
 app: $(SRC_OBJS)
