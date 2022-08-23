@@ -49,7 +49,7 @@ int main() {
         }
 
         window.clear();
-        grid.draw(&window);
+        window.draw(grid);
         window.display();
     }
 

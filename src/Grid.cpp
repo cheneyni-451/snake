@@ -92,10 +92,10 @@ void Grid::updateDirection(const sf::Keyboard::Key key) {
     }
 }
 
-void Grid::draw(sf::RenderTarget *window) {
+void Grid::draw(sf::RenderTarget &window, sf::RenderStates states) const {
     for (const auto &row : grid) {
         for (const Cell &cell : row) {
-            cell.draw(window);
+            window.draw(cell);
         }
     }
 }

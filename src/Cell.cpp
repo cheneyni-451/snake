@@ -26,6 +26,6 @@ void Cell::setEmpty() {
     sprite.setFillColor(sf::Color::Black);
 }
 
-void Cell::draw(sf::RenderTarget *window) const {
-    window->draw(sprite);
+void Cell::draw(sf::RenderTarget &window, sf::RenderStates states) const {
+    window.draw(sprite);
 }

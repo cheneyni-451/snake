@@ -4,8 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
 
-class Cell {
-   public:
+struct Cell : sf::Drawable {
     enum CellType : uint8_t { Empty, Food, Snake };
     CellType type;
     size_t x;
@@ -20,7 +19,7 @@ class Cell {
 
     void setEmpty();
 
-    void draw(sf::RenderTarget *window) const;
+    void draw(sf::RenderTarget &window, sf::RenderStates states) const;
 };
 
 #endif /* CELL_H */

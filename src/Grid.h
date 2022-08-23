@@ -12,7 +12,7 @@ typedef std::pair<int, int> Point;
 
 enum Direction : uint8_t { UP, DOWN, LEFT, RIGHT };
 
-struct Grid {
+struct Grid : sf::Drawable {
     Direction direction;
 
     static const int GRID_SIZE = 10;
@@ -27,7 +27,7 @@ struct Grid {
 
     void updateDirection(const sf::Keyboard::Key key);
 
-    void draw(sf::RenderTarget *window);
+    void draw(sf::RenderTarget &window, sf::RenderStates states) const;
 
    private:
     std::random_device dev;
