@@ -5,7 +5,7 @@
 
 int main() {
     sf::Clock clock;
-    const double TIMESTEP = 0.375;
+    const double TIMESTEP = 0.2;
     double lappedTime = 0.0;
 
     sf::RenderWindow window(sf::VideoMode(200, 200), "Snake!");

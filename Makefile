@@ -12,7 +12,7 @@ _OBJS = main.o Cell.o Grid.o
 SRC_OBJS = $(patsubst %,$(OBJ_DIR)/%,$(_OBJS))
 
 app: $(SRC_OBJS)
-	$(CC) $^ -o $@ $(CPPFLAGS) $(SFML_FLAGS)
+	$(CC) $(SRC_OBJS) -o $@ $(CPPFLAGS) $(SFML_FLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
 	$(CC) $(CPPFLAGS) -c -o $@ $<

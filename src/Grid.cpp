@@ -20,6 +20,7 @@ Grid::Grid() {
                 setSnake(snake.back());
             } else {
                 emptyCells.emplace_back(col, row);
+                emptyCellsMap[emptyCells.back()] = emptyCells.size() - 1;
             }
         }
     }
@@ -32,20 +33,27 @@ Grid::Grid() {
 
 void Grid::update() {
     const Point newHead = moveSnake();
-    if (!checkBounds()) {
+    if (!checkBounds(newHead)) {
         exit(1);
     }
-    snake.push_front(newHead);
-    const auto headIter =
-        std::find(emptyCells.cbegin(), emptyCells.cend(), newHead);
-    emptyCells.erase(headIter);
+    // If the new head position is empty, remove it from the empty list and
+    // cache
+    const auto cellIt = emptyCellsMap.find(newHead);
+    if (cellIt != emptyCellsMap.end()) {
+        emptyCellsMap[emptyCells.back()] = cellIt->second;
+        std::swap(emptyCells[cellIt->second], emptyCells.back());
+        emptyCells.pop_back();
+        emptyCellsMap.erase(cellIt);
+    }
 
     const auto [col, row] = newHead;
     const Cell &headCell = grid[row][col];
+
     if (headCell.type == Cell::CellType::Empty) {
-        const Point &tail = snake.back();
-        emptyCells.push_back(tail);
+        const Point tail = snake.back();
         setEmpty(tail);
+        emptyCells.push_back(tail);
+        emptyCellsMap[tail] = emptyCells.size() - 1;
         snake.pop_back();
     } else if (headCell.type == Cell::CellType::Food) {
         const Point randPoint = getRandomEmptyCell();
@@ -53,6 +61,7 @@ void Grid::update() {
     } else {
         exit(1);
     }
+    snake.push_front(newHead);
 
     setSnake(newHead);
 }
@@ -105,9 +114,14 @@ const Point Grid::getRandomEmptyCell() {
                                                        emptyCells.size() - 1);
     size_t randomIndex = distribution(generator);
 
+    emptyCellsMap[emptyCells.back()] = randomIndex;
+    emptyCellsMap.erase(emptyCells[randomIndex]);
     std::swap(emptyCells[randomIndex], emptyCells.back());
+
     const Point pointCopy = emptyCells.back();
     emptyCells.pop_back();
+
+    const Cell cell = grid[pointCopy.second][pointCopy.first];
 
     return pointCopy;
 }
@@ -128,8 +142,6 @@ const Point Grid::moveSnake() const {
         case Direction::RIGHT:
             newHead.first += 1;
             break;
-        default:
-            break;
     }
 
     return newHead;
@@ -147,8 +159,8 @@ void Grid::setEmpty(const Point &cell) {
     grid[cell.second][cell.first].setEmpty();
 }
 
-bool Grid::checkBounds() const {
-    const auto [col, row] = snake.front();
+bool Grid::checkBounds(const Point &point) {
+    const auto [col, row] = point;
 
     if (row < 0 || row >= GRID_SIZE) {
         return false;
