@@ -1,10 +1,10 @@
 #include "Cell.h"
 
 Cell::Cell(const size_t x, const size_t y) : type(CellType::Empty), x(x), y(y) {
-    sprite.setSize(sf::Vector2f(50.f, 50.f));
-    sprite.setPosition(sf::Vector2f(x * 60, y * 60));
+    sprite.setSize(sf::Vector2f(10.f, 10.f));
+    sprite.setPosition(sf::Vector2f(x * 15, y * 15));
     sprite.setFillColor(sf::Color::Black);
-    sprite.setOutlineThickness(2.f);
+    sprite.setOutlineThickness(0.0);
     sprite.setOutlineColor(sf::Color::White);
 }
 

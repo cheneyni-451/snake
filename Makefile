@@ -3,7 +3,7 @@ OBJ_DIR := $(BUILD_DIR)/objs
 SRC_DIR := src
 
 CC = g++
-CPPFLAGS = -std=c++17 -Wall -g3
+CPPFLAGS = -std=c++17 -Wall -O3
 SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)

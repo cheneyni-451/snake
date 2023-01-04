@@ -24,7 +24,7 @@ enum Direction : uint8_t { UP, DOWN, LEFT, RIGHT };
 struct Grid : sf::Drawable {
     Direction direction;
 
-    static const int GRID_SIZE = 15;
+    static const int GRID_SIZE = 80;
 
     std::vector<std::vector<Cell>> grid;
     std::vector<Point> emptyCells;

@@ -27,8 +27,10 @@ Grid::Grid() {
 
     direction = Direction::UP;
 
-    const Point &randPoint = getRandomEmptyCell();
-    setFood(randPoint);
+    for (size_t i = 0; i < GRID_SIZE / 2; ++i) {
+        const Point &randPoint = getRandomEmptyCell();
+        setFood(randPoint);
+    }
 }
 
 void Grid::update() {
